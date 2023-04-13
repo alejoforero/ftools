@@ -33,6 +33,7 @@
 {synopt :{opt v:erbose}}show more information{p_end}
 {synopt :{opt nolog:table}}supress table linking to log-files of all processes{p_end}
 {synopt :{opth pr:ograms(namelist)}}list of programs that will be exported to the worker processes{p_end}
+{synopt :{opth sleep(#)}}Number of miliseconds to wait between queries of execution status. Useful for computers with slow drives for temporary files or large number of processes. Default is 50.
 
 {syntab:Internals:}
 {synopt :{opt id(#)}}identifier of the {it:boss} process. Used as part the temporary folder names. Default: a pseudo-random number based on {it:runiform()}{p_end}

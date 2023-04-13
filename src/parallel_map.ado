@@ -1,15 +1,17 @@
 *! version 0.2.0  26feb2021
+cap pro drop parallel_map
 program define parallel_map
 	
 	* Intercept -clean- option
-	cap syntax, clean [Verbose]
+	cap syntax, clean [Verbose sleep(integer 50)]
 	if !c(rc) {
 		parallel_map_clean, `verbose'
 		exit
 	}
-
+	
+di as red "``0'-----------'"
 	global pids // clean up
-	cap noi parallel_map_inner `0'
+	cap noi parallel_map_inner `0' 
 	loc rc = c(rc)
 	foreach pid of global pids {
 		di as error " - closing process `pid'"
@@ -36,7 +38,7 @@ program define parallel_map_inner
 	_on_colon_parse `0'
 	loc 0 `s(before)'
 	loc cmd `s(after)'
-	syntax, VALues(numlist integer min=1 max=1000 >=1 <100000000) ///
+	syntax, VALues(numlist integer min=1 max=1000 >=1 <100000000) [sleep(integer 50)] ///
 		[ ///
 		MAXprocesses(integer 0) ///
 		COREs_per_process(integer 0) ///
@@ -343,7 +345,7 @@ program define parallel_map_inner
 		* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		* Introduce some delay ...
 		* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		sleep 50
+		sleep `sleep'
 
 	}
 
